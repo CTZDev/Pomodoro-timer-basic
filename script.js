@@ -10,14 +10,19 @@ const pomodoroTimer = (screenTimer, btnStart, btnStop, btnReset) => {
   document.addEventListener('click', (e) => {
     if (e.target === $btnStart) {
       timer = setInterval(getPomodoroTimer, 1000);
+      $btnStart.disabled = true;
     }
 
     if (e.target === $btnStop) {
+      clearInterval(timer);
+      $btnStart.disabled = false;
+      return;
     }
 
     if (e.target === $btnReset) {
       minutes = 24;
       seconds = 59;
+      $btnStart.disabled = false;
       if (timer != null) clearInterval(timer);
       return ($screenTimer.textContent = `25:00`);
     }
